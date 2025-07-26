@@ -1,0 +1,15 @@
+[package]
+name = "bxyz-invite"
+version = "0.1.0"
+edition = "2021"
+authors = [ "Blacepos" ]
+
+[dependencies]
+clap = { version = "*", features = ["derive"] }
+flexi_logger = { version = "*" }
+log = { version = "*" }
+tokio = { version = "*", features = ["full"] }
+axum = { version = "*" }
+tower = { version = "*" }
+tower-http = { version = "*", features = ["trace", "fs"] }
+slot = { path = "../slot" }
