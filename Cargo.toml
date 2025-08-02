@@ -13,3 +13,9 @@ axum = { version = "*" }
 tower = { version = "*" }
 tower-http = { version = "*", features = ["trace", "fs"] }
 slot = { path = "../slot" }
+serde = { version = "*", features = ["derive"] }
+serde_cbor = "*"
+rand = "*"
+base62 = "*"
+askama = "*"
+tera = "*"

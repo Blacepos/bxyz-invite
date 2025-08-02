@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{{ event_name }} | Manage</title>
+    <link rel="stylesheet" href="/invite/content/styles/default.css">
+</head>
+<body>
+    <h1>Manage Invitations For <input id="event_name" class="editable" type="text" oninput="resizeInput(this)" value="{{ event_name }}"></h1>
+    <table>
+        <thead>
+            <tr>
+                <th></th>
+                <th>Attendee Name</th>
+                <th>Custom Invitation HTML</th>
+                <th>Has Accepted</th>
+                <th>Invite Link</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for attendee in attendees %}
+            <tr>
+                <td><button onclick="removeAttendee('{{ attendee.remove_link }}')">X</button></td>
+                <td><input data-attendee="{{ attendee.id }}" id="name" class="editable" type="text" value="{{ attendee.name }}"></td>
+                <td><input data-attendee="{{ attendee.id }}" id="custom_html" class="editable" type="text" value="{{ attendee.custom_html }}"></td>
+                <td class="centered">
+                    {% if attendee.has_accepted %} Yes {% else %} No {% endif %}
+                </td>
+                <td>{{ attendee.invite_link }}</td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+    <button onclick="sendUpdatedData()">Update Event</button>
+    <button onclick="addAttendee()">Invite Another Person</button>
+    <script>
+    async function sendUpdatedData() {
+        let data = {};
+        for (let el of document.querySelectorAll("input[class='editable']")) {
+            if (el.id === "event_name") {
+                data[el.id] = el.value;
+            } else {
+                if (data.attendee_data === undefined) {
+                    data.attendee_data = {};
+                }
+                if (data.attendee_data[el.dataset.attendee] === undefined) {
+                    data.attendee_data[el.dataset.attendee] = {};
+                }
+                // e.g. data["2933495"]["name"] = "Blacepos"
+                data.attendee_data[el.dataset.attendee][el.id] = el.value;
+            }
+        }
+
+        await fetch("{{ update_link }}", {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify(data)
+        });
+
+        location.reload();
+    }
+
+    async function addAttendee() {
+        await fetch("{{ add_link }}", {
+            method: "POST",
+        });
+
+        location.reload();
+    }
+
+    async function removeAttendee(remove_link) {
+        await fetch(remove_link, {
+            method: "POST",
+        });
+
+        location.reload();
+    }
+
+    function resizeInput(input) {
+        const tempSpan = document.createElement("span");
+        tempSpan.style.visibility = "hidden";
+        tempSpan.style.position = "fixed";
+        tempSpan.style.whiteSpace = "pre";
+        tempSpan.style.font = getComputedStyle(input).font;
+        tempSpan.textContent = input.value || input.placeholder || " ";
+        document.body.appendChild(tempSpan);
+
+        input.style.width = tempSpan.offsetWidth + 2 + "px"; // Add a couple pixels for caret
+
+        document.body.removeChild(tempSpan);
+    }
+
+    // Optionally resize on load
+    document.addEventListener("DOMContentLoaded", () => {
+        const input = document.getElementById("autoInput");
+        resizeInput(input);
+    });
+    </script>
+</body>
+</html>
