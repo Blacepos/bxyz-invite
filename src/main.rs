@@ -231,7 +231,8 @@ async fn view_invitation(Path(id): Path<String>) -> Response {
         // TODO: replace with a default page
         return (
             StatusCode::INTERNAL_SERVER_ERROR,
-            "Failed to render organizer template",
+            "Failed to render the custom invitation. Please contact the event \
+             organizer and let them know.",
         )
             .into_response();
     };

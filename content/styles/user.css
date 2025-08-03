@@ -1,0 +1,17 @@
+
+body {
+    font-family: "Segoe UI", "Noto Sans", Helvetica, Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji";
+    color: rgb(245, 245, 247);
+    background-color: #232327;
+    text-align: center;
+}
+
+button {
+    font-size: 1em;
+    background-color: #434347;
+    border-style: solid;
+    border-radius: 6px;
+    border-width: 1px;
+    color: #eef;
+    padding: 10px;
+}
