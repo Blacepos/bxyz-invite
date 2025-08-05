@@ -1,7 +1,6 @@
 #![feature(duration_constructors, duration_constructors_lite)]
 pub mod cli;
 pub mod event_db;
-pub mod init;
 pub mod templates;
 
 use clap::Parser;
