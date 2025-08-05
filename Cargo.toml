@@ -4,6 +4,14 @@ version = "0.1.0"
 edition = "2021"
 authors = [ "Blacepos" ]
 
+[[bin]]
+name = "bxyz-invite"
+path = "src/main.rs"
+
+[[bin]]
+name = "database-debug"
+path = "src/database_debug.rs"
+
 [dependencies]
 clap = { version = "*", features = ["derive"] }
 flexi_logger = { version = "*" }

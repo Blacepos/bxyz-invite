@@ -18,12 +18,12 @@ static DB_GUARD: Mutex<()> = Mutex::const_new(());
 static RNG: LazyLock<Mutex<StdRng>> =
     LazyLock::new(|| Mutex::new(StdRng::from_os_rng()));
 
-#[derive(Serialize, Deserialize, Default)]
-struct EventDB {
-    events: Vec<Event>,
+#[derive(Serialize, Deserialize, Default, Debug)]
+pub struct EventDB {
+    pub events: Vec<Event>,
 }
 
-#[derive(Serialize, Deserialize, Clone)]
+#[derive(Serialize, Deserialize, Clone, Debug)]
 pub struct Event {
     pub id: u64,
     // Option since it starts unset
@@ -32,7 +32,7 @@ pub struct Event {
     pub created: SystemTime,
 }
 
-#[derive(Serialize, Deserialize, Clone)]
+#[derive(Serialize, Deserialize, Clone, Debug)]
 pub struct Attendee {
     pub id: u64,
     pub name: String,
