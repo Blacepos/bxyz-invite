@@ -294,7 +294,7 @@ async fn view_event(Path(id): Path<String>) -> Response {
                 .into_response();
         }
     };
-    let (event, _attendee) =
+    let (event, attendee) =
         match event_db::find_event_by_attendee(at_id as u64).await {
             Ok(v) => v,
             Err(FindEventError::Database(e)) => {
@@ -304,11 +304,18 @@ async fn view_event(Path(id): Path<String>) -> Response {
                 return (StatusCode::NOT_FOUND, e).into_response();
             }
         };
+    
+    // if not accepted, redirect to invitation
+    if !attendee.has_accepted {
+        let redirect_url = format!("/invite/attend/{id}");
+        return Redirect::to(&redirect_url).into_response();
+    }
 
     // render response
     let event_name = event.name.unwrap_or("Untitled Event".to_string());
     let Ok(template) = templates::ThanksPage {
         event_name: &event_name,
+        withdraw_link: &format!("/invite/withdraw/{}", id)
     }
     .render() else {
         return (StatusCode::INTERNAL_SERVER_ERROR, "Failed to render page")

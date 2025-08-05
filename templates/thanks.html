@@ -7,7 +7,10 @@
     <link rel="stylesheet" href="/invite/content/styles/user.css">
 </head>
 <body>
-    <h2>Your response has been recorded</h2>
-    <p>Thank you for RSVP'ing to {{ event_name }}. If you wish to withdraw from the event, open your invitation link again.</p>
+    <main>
+        <h2>Your response has been recorded</h2>
+        <p>Thank you for RSVP'ing to {{ event_name }}. If you wish to withdraw from the event click below</p>
+        <a href="{{ withdraw_link }}"><button>Withdraw</button></a>
+    </main>
 </body>
 </html>

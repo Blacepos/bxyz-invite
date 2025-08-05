@@ -55,6 +55,7 @@ pub struct ManagePageAttendeeJson {
 #[template(path = "thanks.html")]
 pub struct ThanksPage<'a> {
     pub event_name: &'a str,
+    pub withdraw_link: &'a str,
 }
 
 #[derive(Template)]

@@ -3,7 +3,20 @@ body {
     font-family: "Segoe UI", "Noto Sans", Helvetica, Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji";
     color: rgb(245, 245, 247);
     background-color: #232327;
+    /* text-align: center; */
+    margin: 0;
+    height: 100vh; /* Full viewport height */
+    display: flex;
+    justify-content: center; /* Horizontal center */
+    align-items: center;     /* Vertical center */
+}
+
+main {
     text-align: center;
+}
+
+h2 {
+    margin-top: 0px;
 }
 
 button {
